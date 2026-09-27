@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>CampusBUddy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+```
+<!-- HOME PAGE -->
+<div id="homePage">
+
+    <h1>CampusBUddy</h1>
+
+    <p>Find it. Check it. Reach it.</p>
+
+    <input
+        id="searchInput"
+        type="text"
+        placeholder="What are you looking for?"
+    >
+
+    <div class="options">
+
+        <button id="libraryButton">📚 Library</button>
+
+        <button id="sportsButton">🏸 Sports</button>
+
+        <button id="roomsButton">🏫 Rooms</button>
+
+    </div>
+
+    <p id="message"></p>
+
+</div>
+
+
+<!-- LIBRARY PAGE -->
+<div id="libraryPage" class="page">
+
+    <!-- Library Header -->
+    <div class="library-header">
+
+        <img
+            src="images/library.jpg"
+            alt="MAIT Central Library"
+            class="library-image"
+        >
+
+        <div class="library-title">
+
+            <h1>📚 MAIT Central Library</h1>
+
+            <p>
+                Your academic resource centre for books,
+                journals, digital resources and study.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- BASIC INFORMATION -->
+    <h2>📖 Library Information</h2>
+
+    <div class="library-info-grid">
+
+        <div class="library-info-card">
+            <span>🏢</span>
+            <h3>4 Floors</h3>
+            <p>Library building</p>
+        </div>
+
+        <div class="library-info-card">
+            <span>💺</span>
+            <h3>~350</h3>
+            <p>Seating capacity</p>
+        </div>
+
+        <div class="library-info-card">
+            <span>📚</span>
+            <h3>88,463</h3>
+            <p>Book volumes</p>
+        </div>
+
+        <div class="library-info-card">
+            <span>💻</span>
+            <h3>Digital Library</h3>
+            <p>Available</p>
+        </div>
+
+        <div class="library-info-card">
+            <span>📖</span>
+            <h3>Journals</h3>
+            <p>National & international</p>
+        </div>
+
+        <div class="library-info-card">
+            <span>📶</span>
+            <h3>Wi-Fi</h3>
+            <p>Available across all floors</p>
+        </div>
+
+    </div>
+
+
+    <!-- SEAT AVAILABILITY -->
+    <h2 class="section-title">🪑 Seat Availability</h2>
+
+    <div class="occupancy-card">
+
+        <div class="occupancy-header">
+
+            <div>
+                <h3>Current Library Occupancy</h3>
+                <p>Live-style availability display</p>
+            </div>
+
+            <span id="availableSeats">127</span>
+<span>seats free</span>
+        </div>
+
+
+        <div class="occupancy-bar">
+
+            <div class="occupied-bar"></div>
+
+        </div>
+
+
+       <div class="occupancy-details">
+
+    <span>🔴 <span id="occupiedSeats">223</span> Occupied</span>
+
+    <span>🟢 <span id="availableSeats2">127</span> Available</span>
+
+</div>
+<!-- CHECK IN / CHECK OUT -->
+
+<div class="checkin-card">
+
+    <h2>🚪 Library Entry</h2>
+
+    <p>
+        Entering or leaving the library? Update the occupancy.
+    </p>
+
+    <button id="checkinButton">
+        ✅ Check In
+    </button>
+
+    <button id="checkoutButton">
+        🚪 Check Out
+    </button>
+
+    <p id="checkinMessage"></p>
+
+</div>
+    </div>
+
+
+    <!-- DATA ANALYSIS -->
+    <h2 class="section-title">📊 Library Usage Analysis</h2>
+
+    <div class="analysis-card">
+
+        <h3>Today's Usage</h3>
+
+        
+            <p>
+    The library is currently operating at
+    <strong id="occupancyPercent">64%</strong> occupancy.
+</p>
+        
+
+        <div class="analysis-stats">
+
+    <div>
+        <strong id="totalSeats">350</strong>
+        <span>Total Seats</span>
+    </div>
+
+    <div>
+        <strong id="analysisOccupied">223</strong>
+        <span>Occupied</span>
+    </div>
+
+    <div>
+        <strong id="analysisAvailable">127</strong>
+        <span>Available</span>
+    </div>
+
+</div>
+
+        </div>
+
+        <p class="demo-note">
+            * Seat availability shown here is demo data for the prototype.
+        </p>
+
+    </div>
+
+
+    <!-- BACK BUTTON -->
+    <button id="libraryBackButton">← Back to Home</button>
+
+</div>
+
+
+<!-- SPORTS PAGE -->
+<div id="sportsPage" class="page">
+
+    <h1>🏸 Sports</h1>
+
+    <h2>Sports Complex</h2>
+
+    <p>📍 Location: Near Gate 2</p>
+
+    <p>🕒 Opening Hours: 6:00 AM - 8:00 PM</p>
+
+    <p>🏸 Available: Badminton, Basketball, Cricket</p>
+
+    <button id="sportsBackButton">← Back</button>
+
+</div>
+
+
+<!-- ROOMS PAGE -->
+<div id="roomsPage" class="page">
+
+    <h1>🏫 Rooms</h1>
+
+    <h2>Academic Block</h2>
+
+    <p>📍 Classrooms and Laboratories</p>
+
+    <p>🏢 Multiple floors available</p>
+
+    <p>🗺️ Room numbers are displayed near the entrances</p>
+
+    <button id="roomsBackButton">← Back</button>
+
+</div>
+
+
+<script src="script.js"></script>
+```
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CampusBUddy - Check Out</title>
+</head>
+
+<body>
+
+    <h1>Library Check-Out</h1>
+
+    <p>You are checking out from the library.</p>
+
+    <button id="confirmCheckout">
+        ✅ Confirm Check-Out
+    </button>
+
+    <p id="message"></p>
+
+
+    <script>
+
+        const button =
+            document.getElementById("confirmCheckout");
+
+        const message =
+            document.getElementById("message");
+
+
+        button.addEventListener("click", async function () {
+
+            const response =
+                await fetch("checkout", {
+                    method: "POST"
+                });
+
+            const data =
+                await response.json();
+
+            message.textContent =
+                data.message;
+
+            button.disabled = true;
+
+        });
+
+    </script>
+
+</body>
+
+</html>

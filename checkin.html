@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CampusBUddy - Check In</title>
+</head>
+
+<body>
+
+    <h1>📚 Library Check-In</h1>
+
+    <p>
+        You are checking in to MAIT Central Library.
+    </p>
+
+    <button id="confirmCheckin">
+        ✅ Confirm Check-In
+    </button>
+
+    <p id="message"></p>
+
+    <script>
+
+        const button =
+            document.getElementById("confirmCheckin");
+        const message =
+
+            document.getElementById("message");
+
+
+        button.addEventListener("click", async function () {
+
+            const response =
+                await fetch("checkin", {
+                    method: "POST"
+                });
+
+            const data =
+                await response.json();
+
+            message.textContent =
+                data.message;
+
+            button.disabled = true;
+
+        });
+
+    </script>
+
+</body>
+
+</html>
