@@ -1,45 +1,88 @@
 console.log("JavaScript is working!");
 
 
-// Get home page
-const homePage = document.getElementById("homePage");
+// ===============================
+// GET HOME PAGE
+// ===============================
+
+const homePage =
+    document.getElementById("homePage");
 
 
-// Get buttons
-const libraryButton = document.getElementById("libraryButton");
-const sportsButton = document.getElementById("sportsButton");
-const roomsButton = document.getElementById("roomsButton");
+// ===============================
+// GET MAIN BUTTONS
+// ===============================
+
+const libraryButton =
+    document.getElementById("libraryButton");
+
+const sportsButton =
+    document.getElementById("sportsButton");
+
+const roomsButton =
+    document.getElementById("roomsButton");
 
 
-// Get category pages
-const libraryPage = document.getElementById("libraryPage");
-const sportsPage = document.getElementById("sportsPage");
-const roomsPage = document.getElementById("roomsPage");
+// ===============================
+// GET CATEGORY PAGES
+// ===============================
+
+const libraryPage =
+    document.getElementById("libraryPage");
+
+const sportsPage =
+    document.getElementById("sportsPage");
+
+const roomsPage =
+    document.getElementById("roomsPage");
 
 
-// Get back buttons
-const libraryBackButton = document.getElementById("libraryBackButton");
-const sportsBackButton = document.getElementById("sportsBackButton");
-const roomsBackButton = document.getElementById("roomsBackButton");
+// ===============================
+// GET BACK BUTTONS
+// ===============================
+
+const libraryBackButton =
+    document.getElementById("libraryBackButton");
+
+const sportsBackButton =
+    document.getElementById("sportsBackButton");
+
+const roomsBackButton =
+    document.getElementById("roomsBackButton");
 
 
-// Get search elements
-const searchInput = document.getElementById("searchInput");
-const message = document.getElementById("message");
+// ===============================
+// GET SEARCH ELEMENTS
+// ===============================
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const message =
+    document.getElementById("message");
 
 
-// Hide every page
+// ===============================
+// HIDE EVERY PAGE
+// ===============================
+
 function hideAllPages() {
 
     homePage.style.display = "none";
+
     libraryPage.style.display = "none";
+
     sportsPage.style.display = "none";
+
     roomsPage.style.display = "none";
 
 }
 
 
-// Show home
+// ===============================
+// SHOW HOME
+// ===============================
+
 function showHome() {
 
     hideAllPages();
@@ -49,7 +92,10 @@ function showHome() {
 }
 
 
-// Show library
+// ===============================
+// SHOW LIBRARY
+// ===============================
+
 function openLibrary() {
 
     hideAllPages();
@@ -59,7 +105,10 @@ function openLibrary() {
 }
 
 
-// Show sports
+// ===============================
+// SHOW SPORTS
+// ===============================
+
 function openSports() {
 
     hideAllPages();
@@ -69,7 +118,10 @@ function openSports() {
 }
 
 
-// Show rooms
+// ===============================
+// SHOW ROOMS
+// ===============================
+
 function openRooms() {
 
     hideAllPages();
@@ -79,7 +131,10 @@ function openRooms() {
 }
 
 
-// Library button
+// ===============================
+// LIBRARY BUTTON
+// ===============================
+
 libraryButton.addEventListener("click", function() {
 
     openLibrary();
@@ -87,7 +142,10 @@ libraryButton.addEventListener("click", function() {
 });
 
 
-// Sports button
+// ===============================
+// SPORTS BUTTON
+// ===============================
+
 sportsButton.addEventListener("click", function() {
 
     openSports();
@@ -95,7 +153,10 @@ sportsButton.addEventListener("click", function() {
 });
 
 
-// Rooms button
+// ===============================
+// ROOMS BUTTON
+// ===============================
+
 roomsButton.addEventListener("click", function() {
 
     openRooms();
@@ -103,7 +164,10 @@ roomsButton.addEventListener("click", function() {
 });
 
 
-// Library Back
+// ===============================
+// LIBRARY BACK BUTTON
+// ===============================
+
 libraryBackButton.addEventListener("click", function() {
 
     showHome();
@@ -111,7 +175,10 @@ libraryBackButton.addEventListener("click", function() {
 });
 
 
-// Sports Back
+// ===============================
+// SPORTS BACK BUTTON
+// ===============================
+
 sportsBackButton.addEventListener("click", function() {
 
     showHome();
@@ -119,7 +186,10 @@ sportsBackButton.addEventListener("click", function() {
 });
 
 
-// Rooms Back
+// ===============================
+// ROOMS BACK BUTTON
+// ===============================
+
 roomsBackButton.addEventListener("click", function() {
 
     showHome();
@@ -127,7 +197,10 @@ roomsBackButton.addEventListener("click", function() {
 });
 
 
-// Search
+// ===============================
+// SEARCH
+// ===============================
+
 searchInput.addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
@@ -178,7 +251,10 @@ const totalLibrarySeats = 350;
 let occupiedLibrarySeats = 223;
 
 
-// Update library information
+// ===============================
+// UPDATE LIBRARY INFORMATION
+// ===============================
+
 function updateLibrarySeats() {
 
     const availableSeats =
@@ -187,7 +263,8 @@ function updateLibrarySeats() {
 
     const occupancyPercentage =
         Math.round(
-            (occupiedLibrarySeats / totalLibrarySeats) * 100
+            (occupiedLibrarySeats /
+            totalLibrarySeats) * 100
         );
 
 
@@ -196,20 +273,26 @@ function updateLibrarySeats() {
     document.getElementById("totalSeats").textContent =
         totalLibrarySeats;
 
+
     document.getElementById("occupiedSeats").textContent =
         occupiedLibrarySeats;
+
 
     document.getElementById("availableSeats").textContent =
         availableSeats;
 
+
     document.getElementById("availableSeats2").textContent =
         availableSeats;
+
 
     document.getElementById("analysisOccupied").textContent =
         occupiedLibrarySeats;
 
+
     document.getElementById("analysisAvailable").textContent =
         availableSeats;
+
 
     document.getElementById("occupancyPercent").textContent =
         occupancyPercentage + "%";
@@ -223,7 +306,9 @@ function updateLibrarySeats() {
 }
 
 
-// Run once when website loads
+// ===============================
+// INITIAL LIBRARY DISPLAY
+// ===============================
 
 updateLibrarySeats();
 
@@ -244,13 +329,15 @@ async function getLibraryData() {
         if (!response.ok) {
 
             throw new Error(
-                "Backend returned status " + response.status
+                "Backend returned status " +
+                response.status
             );
 
         }
 
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
 
         occupiedLibrarySeats =
@@ -274,8 +361,9 @@ async function getLibraryData() {
             error
         );
 
-        // Keep the default values if backend
-        // is temporarily unavailable
+
+        // Keep the current/default values
+        // if backend is temporarily unavailable
 
         updateLibrarySeats();
 
@@ -284,6 +372,178 @@ async function getLibraryData() {
 }
 
 
-// Get data when website loads
+// ===============================
+// CHECK-IN / CHECK-OUT ELEMENTS
+// ===============================
+
+const checkinButton =
+    document.getElementById("checkinButton");
+
+
+const checkoutButton =
+    document.getElementById("checkoutButton");
+
+
+const checkinMessage =
+    document.getElementById("checkinMessage");
+
+
+// ===============================
+// CHECK-IN
+// ===============================
+
+checkinButton.addEventListener("click", async function() {
+
+    checkinButton.disabled = true;
+
+    checkinMessage.textContent =
+        "Processing check-in...";
+
+
+    try {
+
+        const response = await fetch(
+            "https://campusbuddy-0y4a.onrender.com/checkin",
+            {
+                method: "POST"
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message
+            );
+
+        }
+
+
+        // Update local occupancy
+
+        occupiedLibrarySeats =
+            data.peopleInside;
+
+
+        updateLibrarySeats();
+
+
+        checkinMessage.textContent =
+            "✅ " + data.message;
+
+
+        console.log(
+            "Check-in successful:",
+            data
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Check-in error:",
+            error
+        );
+
+
+        checkinMessage.textContent =
+            "❌ " + error.message;
+
+    }
+
+    finally {
+
+        checkinButton.disabled = false;
+
+    }
+
+});
+
+
+// ===============================
+// CHECK-OUT
+// ===============================
+
+checkoutButton.addEventListener("click", async function() {
+
+    checkoutButton.disabled = true;
+
+    checkinMessage.textContent =
+        "Processing check-out...";
+
+
+    try {
+
+        const response = await fetch(
+            "https://campusbuddy-0y4a.onrender.com/checkout",
+            {
+                method: "POST"
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message
+            );
+
+        }
+
+
+        // Update local occupancy
+
+        occupiedLibrarySeats =
+            data.peopleInside;
+
+
+        updateLibrarySeats();
+
+
+        checkinMessage.textContent =
+            "✅ " + data.message;
+
+
+        console.log(
+            "Check-out successful:",
+            data
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Check-out error:",
+            error
+        );
+
+
+        checkinMessage.textContent =
+            "❌ " + error.message;
+
+    }
+
+    finally {
+
+        checkoutButton.disabled = false;
+
+    }
+
+});
+
+
+// ===============================
+// LOAD LIBRARY DATA
+// ===============================
 
 getLibraryData();
