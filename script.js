@@ -32,12 +32,10 @@ const message = document.getElementById("message");
 function hideAllPages() {
 
     homePage.style.display = "none";
-
     libraryPage.style.display = "none";
-
     sportsPage.style.display = "none";
-
     roomsPage.style.display = "none";
+
 }
 
 
@@ -47,6 +45,7 @@ function showHome() {
     hideAllPages();
 
     homePage.style.display = "block";
+
 }
 
 
@@ -56,6 +55,7 @@ function openLibrary() {
     hideAllPages();
 
     libraryPage.style.display = "block";
+
 }
 
 
@@ -65,6 +65,7 @@ function openSports() {
     hideAllPages();
 
     sportsPage.style.display = "block";
+
 }
 
 
@@ -74,6 +75,7 @@ function openRooms() {
     hideAllPages();
 
     roomsPage.style.display = "block";
+
 }
 
 
@@ -130,7 +132,8 @@ searchInput.addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
 
-        const searchText = searchInput.value.toLowerCase().trim();
+        const searchText =
+            searchInput.value.toLowerCase().trim();
 
 
         if (searchText === "library") {
@@ -145,7 +148,10 @@ searchInput.addEventListener("keydown", function(event) {
 
         }
 
-        else if (searchText === "room" || searchText === "rooms") {
+        else if (
+            searchText === "room" ||
+            searchText === "rooms"
+        ) {
 
             openRooms();
 
@@ -153,13 +159,16 @@ searchInput.addEventListener("keydown", function(event) {
 
         else {
 
-            message.textContent = "Sorry, I couldn't find that.";
+            message.textContent =
+                "Sorry, I couldn't find that.";
 
         }
 
     }
 
 });
+
+
 // ===============================
 // LIBRARY SEAT DATA
 // ===============================
@@ -174,6 +183,7 @@ function updateLibrarySeats() {
 
     const availableSeats =
         totalLibrarySeats - occupiedLibrarySeats;
+
 
     const occupancyPercentage =
         Math.round(
@@ -209,26 +219,68 @@ function updateLibrarySeats() {
 
     document.querySelector(".occupied-bar").style.width =
         occupancyPercentage + "%";
+
 }
 
 
-// Run once when the website loads
+// Run once when website loads
 
 updateLibrarySeats();
-// Get latest library data from backend
+
+
+// ===============================
+// GET LATEST LIBRARY DATA
+// ===============================
 
 async function getLibraryData() {
 
-    const response =
-        await fetch("http://localhost:3000/occupancy");
+    try {
 
-    const data =
-        await response.json();
+        const response = await fetch(
+            "https://campusbuddy-0y4a.onrender.com/occupancy"
+        );
 
-    occupiedLibrarySeats =
-        data.peopleInside;
 
-    updateLibrarySeats();
+        if (!response.ok) {
+
+            throw new Error(
+                "Backend returned status " + response.status
+            );
+
+        }
+
+
+        const data = await response.json();
+
+
+        occupiedLibrarySeats =
+            data.peopleInside;
+
+
+        updateLibrarySeats();
+
+
+        console.log(
+            "Library data updated:",
+            data
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not get library data:",
+            error
+        );
+
+        // Keep the default values if backend
+        // is temporarily unavailable
+
+        updateLibrarySeats();
+
+    }
+
 }
 
 
