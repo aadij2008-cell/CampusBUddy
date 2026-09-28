@@ -212,22 +212,80 @@
 
 
 <!-- SPORTS PAGE -->
+<!-- SPORTS PAGE -->
 <div id="sportsPage" class="page">
 
-    <h1>🏸 Sports</h1>
+    <div class="sports-header">
 
-    <h2>Sports Complex</h2>
+        <h1>🏆 Sports Department</h1>
 
-    <p>📍 Location: Near Gate 2</p>
+        <p>
+            Check the availability of sports facilities at MAIT.
+        </p>
 
-    <p>🕒 Opening Hours: 6:00 AM - 8:00 PM</p>
+    </div>
 
-    <p>🏸 Available: Badminton, Basketball, Cricket</p>
 
-    <button id="sportsBackButton">← Back</button>
+    <!-- SPORTS BUTTONS -->
+
+    <div class="sports-options">
+
+        <button id="basketballButton">
+            🏀 Basketball
+        </button>
+
+        <button id="volleyballButton">
+            🏐 Volleyball
+        </button>
+
+        <button id="footballButton">
+            ⚽ Football
+        </button>
+
+    </div>
+
+
+    <!-- SPORTS INFORMATION -->
+
+    <div id="sportsInfo" class="sports-info">
+
+        <h2 id="selectedSport">Select a Sport</h2>
+
+        <div class="sports-stats">
+
+            <div class="sports-stat-card">
+
+                <span>🏟️</span>
+
+                <strong id="totalSports">-</strong>
+
+                <p>Total</p>
+
+            </div>
+
+
+            <div class="sports-stat-card">
+
+                <span>🟢</span>
+
+                <strong id="availableSports">-</strong>
+
+                <p>Available</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BACK BUTTON -->
+
+    <button id="sportsBackButton">
+        ← Back to Home
+    </button>
 
 </div>
-
 
 <!-- ROOMS PAGE -->
 <div id="roomsPage" class="page">
