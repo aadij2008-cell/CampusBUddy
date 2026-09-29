@@ -31,6 +31,8 @@
 
         <button id="roomsButton">🏫 Rooms</button>
 
+        <button id="AIButton">🤖 AI Assistant</button>
+
     </div>
 
     <p id="message"></p>
@@ -367,10 +369,38 @@
     </button>
 
 </div>
+    ...
+
+    <div id="chatbot" class="chatbot">
+
+        <div class="chat-header">
+            <h3>🤖 Campus Buddy AI</h3>
+            <button id="closeChat">✕</button>
+        </div>
+
+        <div id="chatMessages" class="chat-messages">
+            <div class="bot-message">
+                👋 Hi! I'm Campus Buddy AI. How can I help you?
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="Ask about rooms, library, timetable..."
+            >
+
+            <button id="sendMessage">Send</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 
 
-<script src="script.js"></script>
-```
+
+
 
 </body>
 

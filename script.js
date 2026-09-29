@@ -1,3 +1,4 @@
+console.log("SCRIPT JS LOADED");
 console.log("JavaScript is working!");
 
 
@@ -560,62 +561,157 @@ const availableSports =
 
 
 // ===============================
+// SPORTS DATA
+// ===============================
+
+let sportsData = {};
+
+
+// ===============================
+// GET SPORTS DATA
+// ===============================
+
+async function getSportsData() {
+
+    try {
+
+        const response = await fetch(
+            "https://campusbuddy-0y4a.onrender.com/sports"
+        );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Backend returned status " +
+                response.status
+            );
+
+        }
+
+        sportsData =
+            await response.json();
+
+        console.log(
+            "Sports data updated:",
+            sportsData
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not get sports data:",
+            error
+        );
+
+    }
+
+}
+
+
+// ===============================
+// SHOW SPORT INFORMATION
+// ===============================
+
+function showSport(
+    sportName,
+    emoji,
+    sportKey
+) {
+
+    const sport =
+        sportsData[sportKey];
+
+    if (!sport) {
+
+        return;
+
+    }
+
+
+    selectedSport.textContent =
+        emoji + " " + sportName;
+
+    totalSports.textContent =
+        sport.total;
+
+    availableSports.textContent =
+        sport.available;
+
+}
+
+
+// ===============================
 // BASKETBALL
 // ===============================
 
-basketballButton.addEventListener("click", function() {
+basketballButton.addEventListener(
+    "click",
+    function() {
 
-    selectedSport.textContent =
-        "🏀 Basketball";
+        showSport(
+            "Basketball",
+            "🏀",
+            "basketball"
+        );
 
-    totalSports.textContent =
-        "2";
-
-    availableSports.textContent =
-        "1";
-
-});
+    }
+);
 
 
 // ===============================
 // VOLLEYBALL
 // ===============================
 
-volleyballButton.addEventListener("click", function() {
+volleyballButton.addEventListener(
+    "click",
+    function() {
 
-    selectedSport.textContent =
-        "🏐 Volleyball";
+        showSport(
+            "Volleyball",
+            "🏐",
+            "volleyball"
+        );
 
-    totalSports.textContent =
-        "2";
-
-    availableSports.textContent =
-        "2";
-
-});
+    }
+);
 
 
 // ===============================
 // FOOTBALL
 // ===============================
 
-footballButton.addEventListener("click", function() {
+footballButton.addEventListener(
+    "click",
+    function() {
 
-    selectedSport.textContent =
-        "⚽ Football";
+        showSport(
+            "Football",
+            "⚽",
+            "football"
+        );
 
-    totalSports.textContent =
-        "1";
+    }
+);
 
-    availableSports.textContent =
-        "1";
 
-});/* =========================
-   ROOMS & LAB AVAILABILITY
-   ========================= */
+// ===============================
+// LOAD SPORTS DATA
+// ===============================
 
-const roomDay = document.getElementById("roomDay");
-const roomTime = document.getElementById("roomTime");
+getSportsData();
+
+
+// ===============================
+// ROOMS & LAB AVAILABILITY
+// ===============================
+
+const roomDay =
+    document.getElementById("roomDay");
+
+const roomTime =
+    document.getElementById("roomTime");
 
 const checkRoomsButton =
     document.getElementById("checkRoomsButton");
@@ -630,10 +726,9 @@ const roomAvailabilityMessage =
     document.getElementById("roomAvailabilityMessage");
 
 
-/*
-   MASTER LIST OF ROOMS FOUND
-   IN THE FIRST-YEAR TIMETABLE
-*/
+// ===============================
+// MASTER LIST OF ROOMS
+// ===============================
 
 const allRooms = [
     "324",
@@ -651,9 +746,9 @@ const allRooms = [
 ];
 
 
-/*
-   LABS / LAB SPACES FROM THE TIMETABLE
-*/
+// ===============================
+// MASTER LIST OF LABS
+// ===============================
 
 const allLabs = [
     "EG-LAB",
@@ -663,20 +758,9 @@ const allLabs = [
 ];
 
 
-/*
-   TIMETABLE OCCUPANCY DATA
-
-   Format:
-
-   Day
-      ↓
-   Time
-      ↓
-   occupied rooms
-
-   The section information is NOT shown
-   to the user.
-*/
+// ===============================
+// ROOM OCCUPANCY DATA
+// ===============================
 
 const occupiedRooms = {
 
@@ -851,12 +935,9 @@ const occupiedRooms = {
 };
 
 
-/*
-   LAB OCCUPANCY
-
-   We keep lab availability separate from
-   normal classrooms.
-*/
+// ===============================
+// LAB OCCUPANCY DATA
+// ===============================
 
 const occupiedLabs = {
 
@@ -914,17 +995,21 @@ const occupiedLabs = {
 
         "9:00-9:50": [],
 
-        "9:50-10:40": ["CHEM-EVS-LAB"],
+        "9:50-10:40":
+            ["CHEM-EVS-LAB"],
 
-        "10:40-11:30": ["CHEM-EVS-LAB"],
+        "10:40-11:30":
+            ["CHEM-EVS-LAB"],
 
         "11:30-12:20": [],
 
         "12:20-1:10": [],
 
-        "1:40-2:30": ["PROG-LAB"],
+        "1:40-2:30":
+            ["PROG-LAB"],
 
-        "2:30-3:20": ["PROG-LAB"],
+        "2:30-3:20":
+            ["PROG-LAB"],
 
         "3:20-4:10": [],
 
@@ -938,17 +1023,21 @@ const occupiedLabs = {
 
         "9:00-9:50": [],
 
-        "9:50-10:40": ["PHY-LAB"],
+        "9:50-10:40":
+            ["PHY-LAB"],
 
-        "10:40-11:30": ["PHY-LAB"],
+        "10:40-11:30":
+            ["PHY-LAB"],
 
         "11:30-12:20": [],
 
         "12:20-1:10": [],
 
-        "1:40-2:30": ["PROG-LAB"],
+        "1:40-2:30":
+            ["PROG-LAB"],
 
-        "2:30-3:20": ["PROG-LAB"],
+        "2:30-3:20":
+            ["PROG-LAB"],
 
         "3:20-4:10": [],
 
@@ -962,13 +1051,17 @@ const occupiedLabs = {
 
         "9:00-9:50": [],
 
-        "9:50-10:40": ["CHEM-EVS-LAB"],
+        "9:50-10:40":
+            ["CHEM-EVS-LAB"],
 
-        "10:40-11:30": ["CHEM-EVS-LAB"],
+        "10:40-11:30":
+            ["CHEM-EVS-LAB"],
 
-        "11:30-12:20": ["PROG-LAB"],
+        "11:30-12:20":
+            ["PROG-LAB"],
 
-        "12:20-1:10": ["PROG-LAB"],
+        "12:20-1:10":
+            ["PROG-LAB"],
 
         "1:40-2:30": [],
 
@@ -982,9 +1075,9 @@ const occupiedLabs = {
 };
 
 
-/*
-   CHECK AVAILABILITY
-*/
+// ===============================
+// CHECK ROOM/LAB AVAILABILITY
+// ===============================
 
 checkRoomsButton.addEventListener(
     "click",
@@ -996,25 +1089,28 @@ checkRoomsButton.addEventListener(
         const selectedTime =
             roomTime.value;
 
+
         if (!selectedDay || !selectedTime) {
 
             roomAvailabilityMessage.textContent =
                 "Please select both a day and a time.";
 
             return;
+
         }
 
 
         const occupied =
             occupiedRooms[selectedDay][selectedTime] || [];
 
+
         const occupiedLabList =
             occupiedLabs[selectedDay][selectedTime] || [];
 
 
-        /*
-           AVAILABLE CLASSROOMS
-        */
+        // ===============================
+        // AVAILABLE ROOMS
+        // ===============================
 
         const freeRooms =
             allRooms.filter(function(room) {
@@ -1024,9 +1120,9 @@ checkRoomsButton.addEventListener(
             });
 
 
-        /*
-           AVAILABLE LABS
-        */
+        // ===============================
+        // AVAILABLE LABS
+        // ===============================
 
         const freeLabs =
             allLabs.filter(function(lab) {
@@ -1036,11 +1132,12 @@ checkRoomsButton.addEventListener(
             });
 
 
-        /*
-           DISPLAY ROOMS
-        */
+        // ===============================
+        // DISPLAY ROOMS
+        // ===============================
 
         availableRooms.innerHTML = "";
+
 
         if (freeRooms.length === 0) {
 
@@ -1048,6 +1145,7 @@ checkRoomsButton.addEventListener(
                 '<p class="no-availability">No rooms available.</p>';
 
         }
+
         else {
 
             freeRooms.forEach(function(room) {
@@ -1068,11 +1166,12 @@ checkRoomsButton.addEventListener(
         }
 
 
-        /*
-           DISPLAY LABS
-        */
+        // ===============================
+        // DISPLAY LABS
+        // ===============================
 
         availableLabs.innerHTML = "";
+
 
         if (freeLabs.length === 0) {
 
@@ -1080,6 +1179,7 @@ checkRoomsButton.addEventListener(
                 '<p class="no-availability">No labs available.</p>';
 
         }
+
         else {
 
             freeLabs.forEach(function(lab) {
@@ -1108,3 +1208,583 @@ checkRoomsButton.addEventListener(
 
     }
 );
+
+
+// ===============================
+// AI CHATBOT
+// ===============================
+
+const AIButton =
+    document.getElementById("AIButton");
+
+const chatbot =
+    document.getElementById("chatbot");
+
+const closeChat =
+    document.getElementById("closeChat");
+
+const chatInput =
+    document.getElementById("chatInput");
+
+const sendMessage =
+    document.getElementById("sendMessage");
+
+const chatMessages =
+    document.getElementById("chatMessages");
+
+
+// ===============================
+// OPEN CHATBOT
+// ===============================
+
+AIButton.addEventListener("click", function() {
+
+    chatbot.style.display = "flex";
+
+    chatInput.focus();
+
+});
+
+
+// ===============================
+// CLOSE CHATBOT
+// ===============================
+
+closeChat.addEventListener("click", function() {
+
+    chatbot.style.display = "none";
+
+});
+
+
+// ===============================
+// ADD MESSAGE
+// ===============================
+
+function addMessage(text, type) {
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        type === "user"
+            ? "user-message"
+            : "bot-message";
+
+
+    message.textContent =
+        text;
+
+
+    chatMessages.appendChild(message);
+
+
+    chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+
+}
+
+
+// ===============================
+// CHATBOT RESPONSE
+// ===============================
+
+function getBotResponse(question) {
+
+    const text =
+        question.toLowerCase().trim();
+
+
+    // =================================
+    // GREETING
+    // =================================
+
+    if (
+        text.includes("hello") ||
+        text.includes("hi") ||
+        text.includes("hey")
+    ) {
+
+        return (
+            "👋 Hey! I'm Campus Buddy AI. " +
+            "I can help you find library seats, " +
+            "sports facilities, rooms and labs."
+        );
+
+    }
+
+
+    // =================================
+    // LIBRARY
+    // =================================
+
+    if (
+        text.includes("library")
+    ) {
+
+        const available =
+            totalLibrarySeats -
+            occupiedLibrarySeats;
+
+
+        return (
+            "📚 The library currently has " +
+            available +
+            " seats available out of " +
+            totalLibrarySeats +
+            "."
+        );
+
+    }
+
+
+    // =================================
+    // SPORTS - LIVE DATA
+    // =================================
+
+    if (text.includes("basketball")) {
+
+        const sport =
+            sportsData.basketball;
+
+        if (sport) {
+
+            return (
+                "🏀 Basketball: " +
+                sport.available +
+                " out of " +
+                sport.total +
+                " facilities are currently available."
+            );
+
+        }
+
+        return (
+            "🏀 Basketball availability is currently unavailable."
+        );
+
+    }
+
+
+    if (text.includes("volleyball")) {
+
+        const sport =
+            sportsData.volleyball;
+
+        if (sport) {
+
+            return (
+                "🏐 Volleyball: " +
+                sport.available +
+                " out of " +
+                sport.total +
+                " facilities are currently available."
+            );
+
+        }
+
+        return (
+            "🏐 Volleyball availability is currently unavailable."
+        );
+
+    }
+
+
+    if (text.includes("football")) {
+
+        const sport =
+            sportsData.football;
+
+        if (sport) {
+
+            return (
+                "⚽ Football: " +
+                sport.available +
+                " out of " +
+                sport.total +
+                " facilities are currently available."
+            );
+
+        }
+
+        return (
+            "⚽ Football availability is currently unavailable."
+        );
+
+    }
+
+
+    // =================================
+    // ROOM / LAB QUESTION
+    // =================================
+
+    if (
+        text.includes("room") ||
+        text.includes("classroom") ||
+        text.includes("lab") ||
+        text.includes("study") ||
+        text.includes("where can i go")
+    ) {
+
+
+        // =================================
+        // FIND DAY
+        // =================================
+
+        let selectedDay =
+            null;
+
+
+        if (text.includes("monday")) {
+
+            selectedDay =
+                "Monday";
+
+        }
+
+        else if (text.includes("tuesday")) {
+
+            selectedDay =
+                "Tuesday";
+
+        }
+
+        else if (text.includes("wednesday")) {
+
+            selectedDay =
+                "Wednesday";
+
+        }
+
+        else if (text.includes("thursday")) {
+
+            selectedDay =
+                "Thursday";
+
+        }
+
+        else if (text.includes("friday")) {
+
+            selectedDay =
+                "Friday";
+
+        }
+
+
+        // =================================
+        // FIND TIME
+        // =================================
+
+        let selectedTime =
+            null;
+
+
+        if (
+            text.includes("8:10") ||
+            text.includes("8.10")
+        ) {
+
+            selectedTime =
+                "8:10-9:00";
+
+        }
+
+        else if (
+            text.includes("9:00") ||
+            text.includes("9-10")
+        ) {
+
+            selectedTime =
+                "9:00-9:50";
+
+        }
+
+        else if (
+            text.includes("9:50")
+        ) {
+
+            selectedTime =
+                "9:50-10:40";
+
+        }
+
+        else if (
+            text.includes("10:40")
+        ) {
+
+            selectedTime =
+                "10:40-11:30";
+
+        }
+
+        else if (
+            text.includes("11:30")
+        ) {
+
+            selectedTime =
+                "11:30-12:20";
+
+        }
+
+        else if (
+            text.includes("12:20")
+        ) {
+
+            selectedTime =
+                "12:20-1:10";
+
+        }
+
+        else if (
+            text.includes("1:40")
+        ) {
+
+            selectedTime =
+                "1:40-2:30";
+
+        }
+
+        else if (
+            text.includes("2:30")
+        ) {
+
+            selectedTime =
+                "2:30-3:20";
+
+        }
+
+        else if (
+            text.includes("3:20")
+        ) {
+
+            selectedTime =
+                "3:20-4:10";
+
+        }
+
+        else if (
+            text.includes("4:10")
+        ) {
+
+            selectedTime =
+                "4:10-5:00";
+
+        }
+
+
+        // =================================
+        // NO DAY
+        // =================================
+
+        if (!selectedDay) {
+
+            return (
+                "🏫 Sure! I can find you an available room or lab. " +
+                "Just tell me the day as well, for example: " +
+                "\"Wednesday 2:30-3:20 PM\"."
+            );
+
+        }
+
+
+        // =================================
+        // NO TIME
+        // =================================
+
+        if (!selectedTime) {
+
+            return (
+                "⏰ I have the day (" +
+                selectedDay +
+                "), but I need the time too. " +
+                "For example: \"Wednesday 2:30-3:20 PM\"."
+            );
+
+        }
+
+
+        // =================================
+        // GET OCCUPIED ROOMS
+        // =================================
+
+        const occupied =
+            occupiedRooms[selectedDay][selectedTime] || [];
+
+
+        const occupiedLabList =
+            occupiedLabs[selectedDay][selectedTime] || [];
+
+
+        // =================================
+        // FIND AVAILABLE ROOMS
+        // =================================
+
+        const freeRooms =
+            allRooms.filter(function(room) {
+
+                return !occupied.includes(room);
+
+            });
+
+
+        // =================================
+        // FIND AVAILABLE LABS
+        // =================================
+
+        const freeLabs =
+            allLabs.filter(function(lab) {
+
+                return !occupiedLabList.includes(lab);
+
+            });
+
+
+        // =================================
+        // CREATE RESPONSE
+        // =================================
+
+        let response =
+            "🏫 For " +
+            selectedDay +
+            " (" +
+            selectedTime +
+            "):\n\n";
+
+
+        if (freeRooms.length > 0) {
+
+            response +=
+                "🚪 Available rooms: " +
+                freeRooms.slice(0, 6).join(", ");
+
+
+            if (freeRooms.length > 6) {
+
+                response +=
+                    " and " +
+                    (freeRooms.length - 6) +
+                    " more";
+
+            }
+
+
+            response +=
+                "\n\n";
+
+        }
+
+        else {
+
+            response +=
+                "🚪 No classrooms are available.\n\n";
+
+        }
+
+
+        if (freeLabs.length > 0) {
+
+            response +=
+                "🧪 Available labs: " +
+                freeLabs.join(", ");
+
+        }
+
+        else {
+
+            response +=
+                "🧪 No labs are available.";
+
+        }
+
+
+        return response;
+
+    }
+
+
+    // =================================
+    // DEFAULT
+    // =================================
+
+    return (
+        "🤔 I'm still learning! " +
+        "Try asking me about library seats, " +
+        "sports, rooms or labs."
+    );
+
+}
+
+
+// ===============================
+// SEND CHAT MESSAGE
+// ===============================
+
+sendMessage.addEventListener(
+    "click",
+    sendChatMessage
+);
+
+
+// ===============================
+// ENTER KEY
+// ===============================
+
+chatInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            sendChatMessage();
+
+        }
+
+    }
+);
+
+
+// ===============================
+// SEND CHAT FUNCTION
+// ===============================
+
+function sendChatMessage() {
+
+    const message =
+        chatInput.value.trim();
+
+
+    if (message === "") {
+
+        return;
+
+    }
+
+
+    addMessage(
+        message,
+        "user"
+    );
+
+
+    chatInput.value =
+        "";
+
+
+    const reply =
+        getBotResponse(message);
+
+
+    setTimeout(
+        function() {
+
+            addMessage(
+                reply,
+                "bot"
+            );
+
+        },
+        300
+    );
+
+}

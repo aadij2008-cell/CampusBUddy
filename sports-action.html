@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Buddy - Sports Control</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sports-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .sport-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sport-card h2 {
+            margin-top: 0;
+        }
+
+        .availability {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px 18px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .occupy {
+            background: #333;
+            color: white;
+        }
+
+        .release {
+            background: #ddd;
+            color: black;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🏟️ Campus Buddy Sports Control</h1>
+
+    <div class="sports-container">
+
+        <!-- Basketball -->
+        <div class="sport-card">
+            <h2>🏀 Basketball</h2>
+
+            <div class="availability">
+                Available:
+                <span id="basketballAvailability">Loading...</span>
+            </div>
+
+            <button
+                id="basketballOccupy"
+                class="occupy"
+                onclick="occupySport('basketball')">
+                Occupy
+            </button>
+
+            <button
+                id="basketballRelease"
+                class="release"
+                onclick="releaseSport('basketball')">
+                Release
+            </button>
+        </div>
+
+
+        <!-- Volleyball -->
+        <div class="sport-card">
+            <h2>🏐 Volleyball</h2>
+
+            <div class="availability">
+                Available:
+                <span id="volleyballAvailability">Loading...</span>
+            </div>
+
+            <button
+                id="volleyballOccupy"
+                class="occupy"
+                onclick="occupySport('volleyball')">
+                Occupy
+            </button>
+
+            <button
+                id="volleyballRelease"
+                class="release"
+                onclick="releaseSport('volleyball')">
+                Release
+            </button>
+        </div>
+
+
+        <!-- Football -->
+        <div class="sport-card">
+            <h2>⚽ Football</h2>
+
+            <div class="availability">
+                Available:
+                <span id="footballAvailability">Loading...</span>
+            </div>
+
+            <button
+                id="footballOccupy"
+                class="occupy"
+                onclick="occupySport('football')">
+                Occupy
+            </button>
+
+            <button
+                id="footballRelease"
+                class="release"
+                onclick="releaseSport('football')">
+                Release
+            </button>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // IMPORTANT:
+        // This is now the public Render backend.
+        const API = "https://campusbuddy-0y4a.onrender.com";
+
+
+        // ==========================================
+        // LOAD SPORTS AVAILABILITY
+        // ==========================================
+
+        async function loadSports() {
+
+            try {
+
+                const response = await fetch(`${API}/sports`);
+
+                if (!response.ok) {
+                    throw new Error("Failed to load sports data");
+                }
+
+                const data = await response.json();
+
+
+                document.getElementById("basketballAvailability").textContent =
+                    `${data.basketball.available} / ${data.basketball.total}`;
+
+                document.getElementById("volleyballAvailability").textContent =
+                    `${data.volleyball.available} / ${data.volleyball.total}`;
+
+                document.getElementById("footballAvailability").textContent =
+                    `${data.football.available} / ${data.football.total}`;
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                document.getElementById("basketballAvailability").textContent =
+                    "Error";
+
+                document.getElementById("volleyballAvailability").textContent =
+                    "Error";
+
+                document.getElementById("footballAvailability").textContent =
+                    "Error";
+            }
+        }
+
+
+        // ==========================================
+        // OCCUPY SPORT
+        // ==========================================
+
+        async function occupySport(sport) {
+
+            const button =
+                document.getElementById(`${sport}Occupy`);
+
+            try {
+
+                const response = await fetch(
+                    `${API}/sports/${sport}/occupy`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    alert(data.message);
+
+                    return;
+                }
+
+
+                alert(`${sport} occupied successfully!`);
+
+
+                // Prevent repeated clicking
+                button.disabled = true;
+
+
+                // Update availability
+                loadSports();
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert("Could not connect to the server.");
+            }
+        }
+
+
+        // ==========================================
+        // RELEASE SPORT
+        // ==========================================
+
+        async function releaseSport(sport) {
+
+            const button =
+                document.getElementById(`${sport}Occupy`);
+
+            try {
+
+                const response = await fetch(
+                    `${API}/sports/${sport}/release`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    alert(data.message);
+
+                    return;
+                }
+
+
+                alert(`${sport} released successfully!`);
+
+
+                // Allow occupying again
+                button.disabled = false;
+
+
+                // Update availability
+                loadSports();
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert("Could not connect to the server.");
+            }
+        }
+
+
+        // Load data when page opens
+        loadSports();
+
+    </script>
+
+</body>
+
+</html>
