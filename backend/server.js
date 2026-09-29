@@ -15,51 +15,72 @@ app.use(express.static("../"));
 // LIBRARY
 // ===============================
 
-let occupancy = {
-    studyRoom: 0,
-    readingRoom: 0
-};
+const totalSeats = 350;
 
+let peopleInside = 223;
+
+
+// Check library occupancy
 app.get("/occupancy", (req, res) => {
-    res.json(occupancy);
+
+    const availableSeats = totalSeats - peopleInside;
+
+    const occupancyPercentage =
+        Math.round((peopleInside / totalSeats) * 100);
+
+    res.json({
+        totalSeats: totalSeats,
+        peopleInside: peopleInside,
+        availableSeats: availableSeats,
+        occupancyPercentage: occupancyPercentage
+    });
+
 });
 
+
+// Check in one person
 app.post("/checkin", (req, res) => {
-    const { area } = req.body;
 
-    if (!area || occupancy[area] === undefined) {
+    if (peopleInside >= totalSeats) {
+
         return res.status(400).json({
             success: false,
-            message: "Invalid area"
+            message: "Library is full"
         });
+
     }
 
-    occupancy[area]++;
+    peopleInside++;
 
     res.json({
         success: true,
-        occupancy
+        peopleInside: peopleInside
     });
+
 });
 
+
+// Check out one person
 app.post("/checkout", (req, res) => {
-    const { area } = req.body;
 
-    if (!area || occupancy[area] === undefined) {
-        return res.status(400).json({
-            success: false,
-            message: "Invalid area"
+    if (peopleInside > 0) {
+
+        peopleInside--;
+
+        res.json({
+            success: true,
+            peopleInside: peopleInside
         });
+
+    } else {
+
+        res.status(400).json({
+            success: false,
+            message: "No students are currently checked in"
+        });
+
     }
 
-    if (occupancy[area] > 0) {
-        occupancy[area]--;
-    }
-
-    res.json({
-        success: true,
-        occupancy
-    });
 });
 
 
@@ -93,6 +114,7 @@ app.get("/sports", (req, res) => {
 
 // Occupy a sports facility
 app.post("/sports/:sport/occupy", (req, res) => {
+
     const sport = req.params.sport;
 
     if (!sports[sport]) {
@@ -121,6 +143,7 @@ app.post("/sports/:sport/occupy", (req, res) => {
 
 // Release a sports facility
 app.post("/sports/:sport/release", (req, res) => {
+
     const sport = req.params.sport;
 
     if (!sports[sport]) {
