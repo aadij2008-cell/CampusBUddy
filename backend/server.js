@@ -190,8 +190,8 @@ app.post("/chat", async (req, res) => {
         }
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.8-flash"
-            contents: userMessage
+            model: "gemini-3.8-flash",
+contents: userMessage
         });
 
         res.json({
