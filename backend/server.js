@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const { GoogleGenAI } = require("@google/genai");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
+});
 app.use(cors());
 app.use(express.json());
 
@@ -167,6 +171,45 @@ app.post("/sports/:sport/release", (req, res) => {
         message: `${sport} released successfully`,
         data: sports[sport]
     });
+});
+// ===============================
+// AI CHATBOT
+// ===============================
+
+app.post("/chat", async (req, res) => {
+
+    try {
+
+        const userMessage = req.body.message;
+
+        if (!userMessage) {
+            return res.status(400).json({
+                success: false,
+                message: "Message is required"
+            });
+        }
+
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: userMessage
+        });
+
+        res.json({
+            success: true,
+            reply: response.text
+        });
+
+    } catch (error) {
+
+        console.error("Gemini error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "AI assistant could not respond"
+        });
+
+    }
+
 });
 
 

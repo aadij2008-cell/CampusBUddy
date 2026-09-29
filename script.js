@@ -1214,6 +1214,10 @@ checkRoomsButton.addEventListener(
 // AI CHATBOT
 // ===============================
 
+// ===============================
+// AI CHATBOT
+// ===============================
+
 const AIButton =
     document.getElementById("AIButton");
 
@@ -1233,6 +1237,7 @@ const chatMessages =
     document.getElementById("chatMessages");
 
 
+
 // ===============================
 // OPEN CHATBOT
 // ===============================
@@ -1246,6 +1251,7 @@ AIButton.addEventListener("click", function() {
 });
 
 
+
 // ===============================
 // CLOSE CHATBOT
 // ===============================
@@ -1257,6 +1263,7 @@ closeChat.addEventListener("click", function() {
 });
 
 
+
 // ===============================
 // ADD MESSAGE
 // ===============================
@@ -1266,19 +1273,15 @@ function addMessage(text, type) {
     const message =
         document.createElement("div");
 
-
     message.className =
         type === "user"
             ? "user-message"
             : "bot-message";
 
-
     message.textContent =
         text;
 
-
     chatMessages.appendChild(message);
-
 
     chatMessages.scrollTop =
         chatMessages.scrollHeight;
@@ -1286,14 +1289,16 @@ function addMessage(text, type) {
 }
 
 
+
 // ===============================
-// CHATBOT RESPONSE
+// EXISTING CAMPUS BUDDY RESPONSE
 // ===============================
 
 function getBotResponse(question) {
 
     const text =
         question.toLowerCase().trim();
+
 
 
     // =================================
@@ -1315,6 +1320,7 @@ function getBotResponse(question) {
     }
 
 
+
     // =================================
     // LIBRARY
     // =================================
@@ -1327,7 +1333,6 @@ function getBotResponse(question) {
             totalLibrarySeats -
             occupiedLibrarySeats;
 
-
         return (
             "📚 The library currently has " +
             available +
@@ -1339,8 +1344,9 @@ function getBotResponse(question) {
     }
 
 
+
     // =================================
-    // SPORTS - LIVE DATA
+    // SPORTS
     // =================================
 
     if (text.includes("basketball")) {
@@ -1367,6 +1373,7 @@ function getBotResponse(question) {
     }
 
 
+
     if (text.includes("volleyball")) {
 
         const sport =
@@ -1389,6 +1396,7 @@ function getBotResponse(question) {
         );
 
     }
+
 
 
     if (text.includes("football")) {
@@ -1415,6 +1423,7 @@ function getBotResponse(question) {
     }
 
 
+
     // =================================
     // ROOM / LAB QUESTION
     // =================================
@@ -1427,14 +1436,14 @@ function getBotResponse(question) {
         text.includes("where can i go")
     ) {
 
+        let selectedDay =
+            null;
+
+
 
         // =================================
         // FIND DAY
         // =================================
-
-        let selectedDay =
-            null;
-
 
         if (text.includes("monday")) {
 
@@ -1472,12 +1481,14 @@ function getBotResponse(question) {
         }
 
 
+
         // =================================
         // FIND TIME
         // =================================
 
         let selectedTime =
             null;
+
 
 
         if (
@@ -1573,6 +1584,7 @@ function getBotResponse(question) {
         }
 
 
+
         // =================================
         // NO DAY
         // =================================
@@ -1586,6 +1598,7 @@ function getBotResponse(question) {
             );
 
         }
+
 
 
         // =================================
@@ -1604,16 +1617,17 @@ function getBotResponse(question) {
         }
 
 
+
         // =================================
-        // GET OCCUPIED ROOMS
+        // GET OCCUPIED DATA
         // =================================
 
         const occupied =
             occupiedRooms[selectedDay][selectedTime] || [];
 
-
         const occupiedLabList =
             occupiedLabs[selectedDay][selectedTime] || [];
+
 
 
         // =================================
@@ -1628,6 +1642,7 @@ function getBotResponse(question) {
             });
 
 
+
         // =================================
         // FIND AVAILABLE LABS
         // =================================
@@ -1638,6 +1653,7 @@ function getBotResponse(question) {
                 return !occupiedLabList.includes(lab);
 
             });
+
 
 
         // =================================
@@ -1652,11 +1668,13 @@ function getBotResponse(question) {
             "):\n\n";
 
 
+
         if (freeRooms.length > 0) {
 
             response +=
                 "🚪 Available rooms: " +
                 freeRooms.slice(0, 6).join(", ");
+
 
 
             if (freeRooms.length > 6) {
@@ -1667,6 +1685,7 @@ function getBotResponse(question) {
                     " more";
 
             }
+
 
 
             response +=
@@ -1680,6 +1699,7 @@ function getBotResponse(question) {
                 "🚪 No classrooms are available.\n\n";
 
         }
+
 
 
         if (freeLabs.length > 0) {
@@ -1698,9 +1718,11 @@ function getBotResponse(question) {
         }
 
 
+
         return response;
 
     }
+
 
 
     // =================================
@@ -1716,14 +1738,16 @@ function getBotResponse(question) {
 }
 
 
+
 // ===============================
-// SEND CHAT MESSAGE
+// SEND BUTTON
 // ===============================
 
 sendMessage.addEventListener(
     "click",
     sendChatMessage
 );
+
 
 
 // ===============================
@@ -1744,14 +1768,16 @@ chatInput.addEventListener(
 );
 
 
+
 // ===============================
 // SEND CHAT FUNCTION
 // ===============================
 
-function sendChatMessage() {
+async function sendChatMessage() {
 
     const message =
         chatInput.value.trim();
+
 
 
     if (message === "") {
@@ -1761,30 +1787,208 @@ function sendChatMessage() {
     }
 
 
+
+    // =================================
+    // SHOW USER MESSAGE
+    // =================================
+
     addMessage(
         message,
         "user"
     );
 
 
+
     chatInput.value =
         "";
 
 
-    const reply =
-        getBotResponse(message);
+
+    // =================================
+    // SHOW THINKING MESSAGE
+    // =================================
+
+    addMessage(
+        "🤔 Thinking...",
+        "bot"
+    );
 
 
-    setTimeout(
-        function() {
 
-            addMessage(
-                reply,
-                "bot"
+    try {
+
+        // =================================
+        // PREPARE LIVE CAMPUS DATA
+        // =================================
+
+        const campusData = {
+
+            library: {
+
+                totalSeats:
+                    totalLibrarySeats,
+
+                occupiedSeats:
+                    occupiedLibrarySeats,
+
+                availableSeats:
+                    totalLibrarySeats -
+                    occupiedLibrarySeats
+
+            },
+
+            sports:
+                sportsData,
+
+            rooms:
+                occupiedRooms,
+
+            labs:
+                occupiedLabs,
+
+            allRooms:
+                allRooms,
+
+            allLabs:
+                allLabs
+
+        };
+
+
+
+        // =================================
+        // SEND MESSAGE TO GEMINI BACKEND
+        // =================================
+
+        const response =
+            await fetch(
+                "https://campusbuddy-0y4a.onrender.com/chat",
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            message:
+                                message,
+
+                            campusData:
+                                campusData
+
+                        })
+
+                }
             );
 
-        },
-        300
-    );
+
+
+        const data =
+            await response.json();
+
+
+
+        // =================================
+        // REMOVE THINKING MESSAGE
+        // =================================
+
+        const botMessages =
+            chatMessages.querySelectorAll(
+                ".bot-message"
+            );
+
+
+
+        if (botMessages.length > 0) {
+
+            botMessages[
+                botMessages.length - 1
+            ].remove();
+
+        }
+
+
+
+        // =================================
+        // CHECK RESPONSE
+        // =================================
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "AI request failed"
+            );
+
+        }
+
+
+
+        // =================================
+        // SHOW AI RESPONSE
+        // =================================
+
+        addMessage(
+            data.reply,
+            "bot"
+        );
+
+    }
+
+
+
+    catch (error) {
+
+        console.error(
+            "AI chatbot error:",
+            error
+        );
+
+
+
+        // =================================
+        // REMOVE THINKING MESSAGE
+        // =================================
+
+        const botMessages =
+            chatMessages.querySelectorAll(
+                ".bot-message"
+            );
+
+
+
+        if (botMessages.length > 0) {
+
+            botMessages[
+                botMessages.length - 1
+            ].remove();
+
+        }
+
+
+
+        // =================================
+        // FALLBACK TO EXISTING CHATBOT
+        // =================================
+
+        const fallbackReply =
+            getBotResponse(message);
+
+
+
+        addMessage(
+            fallbackReply,
+            "bot"
+        );
+
+    }
 
 }
