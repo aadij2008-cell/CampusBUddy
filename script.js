@@ -268,8 +268,6 @@ function updateLibrarySeats() {
         );
 
 
-    // Update numbers on the page
-
     document.getElementById("totalSeats").textContent =
         totalLibrarySeats;
 
@@ -297,8 +295,6 @@ function updateLibrarySeats() {
     document.getElementById("occupancyPercent").textContent =
         occupancyPercentage + "%";
 
-
-    // Update occupancy bar
 
     document.querySelector(".occupied-bar").style.width =
         occupancyPercentage + "%";
@@ -362,9 +358,6 @@ async function getLibraryData() {
         );
 
 
-        // Keep the current/default values
-        // if backend is temporarily unavailable
-
         updateLibrarySeats();
 
     }
@@ -379,10 +372,8 @@ async function getLibraryData() {
 const checkinButton =
     document.getElementById("checkinButton");
 
-
 const checkoutButton =
     document.getElementById("checkoutButton");
-
 
 const checkinMessage =
     document.getElementById("checkinMessage");
@@ -422,8 +413,6 @@ checkinButton.addEventListener("click", async function() {
 
         }
 
-
-        // Update local occupancy
 
         occupiedLibrarySeats =
             data.peopleInside;
@@ -500,8 +489,6 @@ checkoutButton.addEventListener("click", async function() {
         }
 
 
-        // Update local occupancy
-
         occupiedLibrarySeats =
             data.peopleInside;
 
@@ -547,215 +534,8 @@ checkoutButton.addEventListener("click", async function() {
 // ===============================
 
 getLibraryData();
-/* =========================
-   SPORTS DEPARTMENT
-   ========================= */
 
-#sportsPage {
-    min-height: 100vh;
 
-    padding: 60px 7%;
-
-    box-sizing: border-box;
-
-    background: rgba(255, 255, 255, 0.97);
-
-    color: #222;
-}
-
-
-/* SPORTS HEADER */
-
-.sports-header {
-    max-width: 1100px;
-
-    margin: 0 auto 45px auto;
-
-    text-align: center;
-}
-
-
-.sports-header h1 {
-    font-size: 42px;
-
-    margin: 0 0 12px 0;
-}
-
-
-.sports-header p {
-    font-size: 18px;
-
-    color: #666;
-
-    margin: 0;
-}
-
-
-/* SPORTS BUTTONS */
-
-.sports-options {
-    max-width: 1100px;
-
-    margin: auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 25px;
-}
-
-
-.sports-options button {
-    height: 150px;
-
-    margin: 0 !important;
-
-    padding: 20px;
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-    background: white;
-
-    color: #222;
-
-    border: none;
-
-    border-radius: 18px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.12);
-
-    transition: 0.2s;
-}
-
-
-.sports-options button:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.18);
-}
-
-
-/* SPORTS INFORMATION */
-
-.sports-info {
-    max-width: 900px;
-
-    margin: 45px auto 0 auto;
-
-    padding: 30px;
-
-    background: #f7f8fa;
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-
-.sports-info h2 {
-    margin-top: 0;
-
-    font-size: 28px;
-}
-
-
-/* SPORTS STATS */
-
-.sports-stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 20px;
-
-    margin-top: 25px;
-}
-
-
-.sports-stat-card {
-    background: white;
-
-    padding: 25px;
-
-    border-radius: 15px;
-
-    text-align: center;
-
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.07);
-}
-
-
-.sports-stat-card span {
-    display: block;
-
-    font-size: 30px;
-
-    margin-bottom: 10px;
-}
-
-
-.sports-stat-card strong {
-    display: block;
-
-    font-size: 36px;
-
-    margin-bottom: 5px;
-}
-
-
-.sports-stat-card p {
-    margin: 0;
-
-    color: #666;
-
-    font-size: 16px;
-}
-
-
-/* SPORTS BACK BUTTON */
-
-#sportsPage > #sportsBackButton {
-    margin-top: 45px;
-}
-
-
-/* =========================
-   SPORTS MOBILE
-   ========================= */
-
-@media (max-width: 800px) {
-
-    .sports-options {
-        grid-template-columns: 1fr;
-    }
-
-
-    .sports-options button {
-        height: 110px;
-    }
-
-
-    .sports-stats {
-        grid-template-columns: 1fr;
-    }
-
-
-    .sports-header h1 {
-        font-size: 32px;
-    }
-
-}
 // ===============================
 // SPORTS AVAILABILITY
 // ===============================
@@ -785,11 +565,14 @@ const availableSports =
 
 basketballButton.addEventListener("click", function() {
 
-    selectedSport.textContent = "🏀 Basketball";
+    selectedSport.textContent =
+        "🏀 Basketball";
 
-    totalSports.textContent = "2";
+    totalSports.textContent =
+        "2";
 
-    availableSports.textContent = "1";
+    availableSports.textContent =
+        "1";
 
 });
 
@@ -800,11 +583,14 @@ basketballButton.addEventListener("click", function() {
 
 volleyballButton.addEventListener("click", function() {
 
-    selectedSport.textContent = "🏐 Volleyball";
+    selectedSport.textContent =
+        "🏐 Volleyball";
 
-    totalSports.textContent = "2";
+    totalSports.textContent =
+        "2";
 
-    availableSports.textContent = "2";
+    availableSports.textContent =
+        "2";
 
 });
 
@@ -815,10 +601,510 @@ volleyballButton.addEventListener("click", function() {
 
 footballButton.addEventListener("click", function() {
 
-    selectedSport.textContent = "⚽ Football";
+    selectedSport.textContent =
+        "⚽ Football";
 
-    totalSports.textContent = "1";
+    totalSports.textContent =
+        "1";
 
-    availableSports.textContent = "1";
+    availableSports.textContent =
+        "1";
 
-});
+});/* =========================
+   ROOMS & LAB AVAILABILITY
+   ========================= */
+
+const roomDay = document.getElementById("roomDay");
+const roomTime = document.getElementById("roomTime");
+
+const checkRoomsButton =
+    document.getElementById("checkRoomsButton");
+
+const availableRooms =
+    document.getElementById("availableRooms");
+
+const availableLabs =
+    document.getElementById("availableLabs");
+
+const roomAvailabilityMessage =
+    document.getElementById("roomAvailabilityMessage");
+
+
+/*
+   MASTER LIST OF ROOMS FOUND
+   IN THE FIRST-YEAR TIMETABLE
+*/
+
+const allRooms = [
+    "324",
+    "333",
+    "334",
+    "346",
+    "347",
+    "511",
+    "521",
+    "522",
+    "532",
+    "533",
+    "535",
+    "536"
+];
+
+
+/*
+   LABS / LAB SPACES FROM THE TIMETABLE
+*/
+
+const allLabs = [
+    "EG-LAB",
+    "PHY-LAB",
+    "PROG-LAB",
+    "CHEM-EVS-LAB"
+];
+
+
+/*
+   TIMETABLE OCCUPANCY DATA
+
+   Format:
+
+   Day
+      ↓
+   Time
+      ↓
+   occupied rooms
+
+   The section information is NOT shown
+   to the user.
+*/
+
+const occupiedRooms = {
+
+    Monday: {
+
+        "8:10-9:00": [],
+
+        "9:00-9:50":
+            ["532", "346"],
+
+        "9:50-10:40":
+            ["535", "511", "522"],
+
+        "10:40-11:30":
+            ["535", "511", "522"],
+
+        "11:30-12:20":
+            ["347", "533", "532"],
+
+        "12:20-1:10":
+            ["347", "333", "346", "532"],
+
+        "1:40-2:30":
+            ["324", "333", "514", "522"],
+
+        "2:30-3:20":
+            ["324", "333", "522"],
+
+        "3:20-4:10":
+            ["346", "536", "532"],
+
+        "4:10-5:00":
+            ["346", "535", "532"]
+    },
+
+
+    Tuesday: {
+
+        "8:10-9:00":
+            ["333"],
+
+        "9:00-9:50":
+            [],
+
+        "9:50-10:40":
+            ["511", "522"],
+
+        "10:40-11:30":
+            ["511", "522"],
+
+        "11:30-12:20":
+            ["511", "533"],
+
+        "12:20-1:10":
+            ["511", "535", "346"],
+
+        "1:40-2:30":
+            ["346", "511"],
+
+        "2:30-3:20":
+            ["511", "334"],
+
+        "3:20-4:10":
+            ["511", "533", "334"],
+
+        "4:10-5:00":
+            ["511", "334"]
+    },
+
+
+    Wednesday: {
+
+        "8:10-9:00":
+            [],
+
+        "9:00-9:50":
+            [],
+
+        "9:50-10:40":
+            ["535", "522", "511"],
+
+        "10:40-11:30":
+            ["535", "522", "511"],
+
+        "11:30-12:20":
+            ["535", "522", "536"],
+
+        "12:20-1:10":
+            ["535", "522", "536"],
+
+        "1:40-2:30":
+            ["333", "334", "535"],
+
+        "2:30-3:20":
+            ["333", "334", "511"],
+
+        "3:20-4:10":
+            ["333", "334"],
+
+        "4:10-5:00":
+            ["334"]
+    },
+
+
+    Thursday: {
+
+        "8:10-9:00":
+            [],
+
+        "9:00-9:50":
+            ["522"],
+
+        "9:50-10:40":
+            ["535", "511", "522"],
+
+        "10:40-11:30":
+            ["535", "511", "522"],
+
+        "11:30-12:20":
+            ["535", "521"],
+
+        "12:20-1:10":
+            ["535", "521"],
+
+        "1:40-2:30":
+            ["522", "334"],
+
+        "2:30-3:20":
+            ["522", "535"],
+
+        "3:20-4:10":
+            ["333", "334"],
+
+        "4:10-5:00":
+            ["333", "324"]
+    },
+
+
+    Friday: {
+
+        "8:10-9:00":
+            [],
+
+        "9:00-9:50":
+            [],
+
+        "9:50-10:40":
+            ["532", "533"],
+
+        "10:40-11:30":
+            ["532", "533"],
+
+        "11:30-12:20":
+            ["521", "522"],
+
+        "12:20-1:10":
+            ["521", "522", "533"],
+
+        "1:40-2:30":
+            ["324", "333", "521"],
+
+        "2:30-3:20":
+            ["333", "522"],
+
+        "3:20-4:10":
+            ["333", "521"],
+
+        "4:10-5:00":
+            ["333", "521"]
+    }
+
+};
+
+
+/*
+   LAB OCCUPANCY
+
+   We keep lab availability separate from
+   normal classrooms.
+*/
+
+const occupiedLabs = {
+
+    Monday: {
+
+        "8:10-9:00": [],
+
+        "9:00-9:50": [],
+
+        "9:50-10:40": [],
+
+        "10:40-11:30": [],
+
+        "11:30-12:20": [],
+
+        "12:20-1:10": [],
+
+        "1:40-2:30": ["PHY-LAB"],
+
+        "2:30-3:20": ["PHY-LAB"],
+
+        "3:20-4:10": ["EG-LAB"],
+
+        "4:10-5:00": ["EG-LAB"]
+    },
+
+
+    Tuesday: {
+
+        "8:10-9:00": [],
+
+        "9:00-9:50": [],
+
+        "9:50-10:40": [],
+
+        "10:40-11:30": [],
+
+        "11:30-12:20": [],
+
+        "12:20-1:10": [],
+
+        "1:40-2:30": ["EG-LAB"],
+
+        "2:30-3:20": ["EG-LAB"],
+
+        "3:20-4:10": ["PHY-LAB"],
+
+        "4:10-5:00": ["PHY-LAB"]
+    },
+
+
+    Wednesday: {
+
+        "8:10-9:00": [],
+
+        "9:00-9:50": [],
+
+        "9:50-10:40": ["CHEM-EVS-LAB"],
+
+        "10:40-11:30": ["CHEM-EVS-LAB"],
+
+        "11:30-12:20": [],
+
+        "12:20-1:10": [],
+
+        "1:40-2:30": ["PROG-LAB"],
+
+        "2:30-3:20": ["PROG-LAB"],
+
+        "3:20-4:10": [],
+
+        "4:10-5:00": []
+    },
+
+
+    Thursday: {
+
+        "8:10-9:00": [],
+
+        "9:00-9:50": [],
+
+        "9:50-10:40": ["PHY-LAB"],
+
+        "10:40-11:30": ["PHY-LAB"],
+
+        "11:30-12:20": [],
+
+        "12:20-1:10": [],
+
+        "1:40-2:30": ["PROG-LAB"],
+
+        "2:30-3:20": ["PROG-LAB"],
+
+        "3:20-4:10": [],
+
+        "4:10-5:00": []
+    },
+
+
+    Friday: {
+
+        "8:10-9:00": [],
+
+        "9:00-9:50": [],
+
+        "9:50-10:40": ["CHEM-EVS-LAB"],
+
+        "10:40-11:30": ["CHEM-EVS-LAB"],
+
+        "11:30-12:20": ["PROG-LAB"],
+
+        "12:20-1:10": ["PROG-LAB"],
+
+        "1:40-2:30": [],
+
+        "2:30-3:20": [],
+
+        "3:20-4:10": [],
+
+        "4:10-5:00": []
+    }
+
+};
+
+
+/*
+   CHECK AVAILABILITY
+*/
+
+checkRoomsButton.addEventListener(
+    "click",
+    function() {
+
+        const selectedDay =
+            roomDay.value;
+
+        const selectedTime =
+            roomTime.value;
+
+        if (!selectedDay || !selectedTime) {
+
+            roomAvailabilityMessage.textContent =
+                "Please select both a day and a time.";
+
+            return;
+        }
+
+
+        const occupied =
+            occupiedRooms[selectedDay][selectedTime] || [];
+
+        const occupiedLabList =
+            occupiedLabs[selectedDay][selectedTime] || [];
+
+
+        /*
+           AVAILABLE CLASSROOMS
+        */
+
+        const freeRooms =
+            allRooms.filter(function(room) {
+
+                return !occupied.includes(room);
+
+            });
+
+
+        /*
+           AVAILABLE LABS
+        */
+
+        const freeLabs =
+            allLabs.filter(function(lab) {
+
+                return !occupiedLabList.includes(lab);
+
+            });
+
+
+        /*
+           DISPLAY ROOMS
+        */
+
+        availableRooms.innerHTML = "";
+
+        if (freeRooms.length === 0) {
+
+            availableRooms.innerHTML =
+                '<p class="no-availability">No rooms available.</p>';
+
+        }
+        else {
+
+            freeRooms.forEach(function(room) {
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "available-item";
+
+                item.textContent =
+                    "🟢 Room " + room;
+
+                availableRooms.appendChild(item);
+
+            });
+
+        }
+
+
+        /*
+           DISPLAY LABS
+        */
+
+        availableLabs.innerHTML = "";
+
+        if (freeLabs.length === 0) {
+
+            availableLabs.innerHTML =
+                '<p class="no-availability">No labs available.</p>';
+
+        }
+        else {
+
+            freeLabs.forEach(function(lab) {
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "available-item";
+
+                item.textContent =
+                    "🧪 " + lab;
+
+                availableLabs.appendChild(item);
+
+            });
+
+        }
+
+
+        roomAvailabilityMessage.textContent =
+            "Availability for " +
+            selectedDay +
+            " • " +
+            selectedTime;
+
+    }
+);
