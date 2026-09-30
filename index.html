@@ -8,6 +8,32 @@
 </head>
 
 <body>
+    <!-- HAMBURGER BUTTON -->
+<button id="menuButton" aria-label="Open menu">☰</button>
+
+<!-- SIDEBAR OVERLAY -->
+<div id="sidebarOverlay"></div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+
+    <div class="sidebar-profile">
+        <div class="profile-avatar">👤</div>
+        <div>
+            <h3>Student Name</h3>
+            <p>Enrollment No.</p>
+        </div>
+    </div>
+
+    <nav class="sidebar-menu">
+        <button id="sideLibrary">📚 Library</button>
+        <button id="sideSports">🏸 Sports</button>
+        <button id="sideRooms">🏫 Rooms</button>
+        <button id="sideAI">🤖 AI Assistant</button>
+        <button id="sideComplaints">📝 Complaints</button>
+    </nav>
+
+</aside>
 
 ```
 <!-- HOME PAGE -->
@@ -370,6 +396,56 @@
 
 </div>
     ...
+    <!-- COMPLAINTS PAGE -->
+<div id="complaintsPage" class="page">
+
+    <div class="complaints-header">
+        <h1>📝 Complaints</h1>
+        <p>Report an issue on campus and we'll make sure it gets noticed.</p>
+    </div>
+
+    <div class="complaint-form">
+
+        <label for="complaintCategory">Category</label>
+        <select id="complaintCategory">
+            <option value="">Choose a category</option>
+            <option value="Library">📚 Library</option>
+            <option value="Sports">🏸 Sports</option>
+            <option value="Classroom / Lab">🏫 Classroom / Lab</option>
+            <option value="Cleanliness">🧹 Cleanliness</option>
+            <option value="Wi-Fi / Electricity">📶 Wi-Fi / Electricity</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="complaintLocation">Location</label>
+        <input
+            id="complaintLocation"
+            type="text"
+            placeholder="e.g. Room 511, Library 2nd floor"
+        >
+
+        <label for="complaintText">Description</label>
+        <textarea
+            id="complaintText"
+            rows="5"
+            placeholder="Describe the problem..."
+        ></textarea>
+
+        <button id="submitComplaint">Submit Complaint</button>
+
+        <p id="complaintMessage"></p>
+
+    </div>
+
+    <h2>Your Complaints</h2>
+
+    <div id="complaintList" class="complaint-list">
+        <p class="no-availability">No complaints yet.</p>
+    </div>
+
+    <button id="complaintsBackButton">← Back to Home</button>
+
+</div>
 
     <div id="chatbot" class="chatbot">
 

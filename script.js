@@ -76,8 +76,11 @@ function hideAllPages() {
     sportsPage.style.display = "none";
 
     roomsPage.style.display = "none";
+    document.getElementById("complaintsPage").style.display = "none";
 
 }
+
+
 
 
 // ===============================
@@ -1992,3 +1995,256 @@ async function sendChatMessage() {
     }
 
 }
+// ===============================
+// SIDEBAR
+// ===============================
+
+const menuButton = document.getElementById("menuButton");
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+function openSidebar() {
+    sidebar.classList.add("open");
+    sidebarOverlay.classList.add("open");
+}
+
+function closeSidebar() {
+    sidebar.classList.remove("open");
+    sidebarOverlay.classList.remove("open");
+}
+
+menuButton.addEventListener("click", openSidebar);
+sidebarOverlay.addEventListener("click", closeSidebar);
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeSidebar();
+    }
+});
+
+document.getElementById("sideLibrary").addEventListener("click", function() {
+    openLibrary();
+    closeSidebar();
+});
+
+document.getElementById("sideSports").addEventListener("click", function() {
+    openSports();
+    closeSidebar();
+});
+
+document.getElementById("sideRooms").addEventListener("click", function() {
+    openRooms();
+    closeSidebar();
+});
+
+document.getElementById("sideAI").addEventListener("click", function() {
+    chatbot.style.display = "flex";
+    chatInput.focus();
+    closeSidebar();
+});
+
+document.getElementById("sideComplaints").addEventListener("click", function() {
+    openComplaints();
+    closeSidebar();
+});
+// ===============================
+// COMPLAINTS
+// ===============================
+
+const complaintsPage = document.getElementById("complaintsPage");
+const complaintCategory = document.getElementById("complaintCategory");
+const complaintLocation = document.getElementById("complaintLocation");
+const complaintText = document.getElementById("complaintText");
+const submitComplaint = document.getElementById("submitComplaint");
+const complaintMessage = document.getElementById("complaintMessage");
+const complaintList = document.getElementById("complaintList");
+const complaintsBackButton = document.getElementById("complaintsBackButton");
+
+const COMPLAINTS_KEY = "campusbuddyComplaints";
+
+
+function openComplaints() {
+
+    hideAllPages();
+
+    complaintsPage.style.display = "block";
+
+    renderComplaints();
+
+}
+
+
+complaintsBackButton.addEventListener("click", function() {
+
+    showHome();
+
+});
+
+
+function loadComplaints() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(COMPLAINTS_KEY)
+        ) || [];
+
+    }
+
+    catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+function saveComplaints(list) {
+
+    localStorage.setItem(
+        COMPLAINTS_KEY,
+        JSON.stringify(list)
+    );
+
+}
+
+
+function renderComplaints() {
+
+    const complaints = loadComplaints();
+
+    complaintList.innerHTML = "";
+
+    if (complaints.length === 0) {
+
+        complaintList.innerHTML =
+            '<p class="no-availability">No complaints yet.</p>';
+
+        return;
+
+    }
+
+    complaints.slice().reverse().forEach(function(c) {
+
+        const item = document.createElement("div");
+        item.className = "complaint-item";
+
+        const top = document.createElement("div");
+        top.className = "complaint-item-top";
+
+        const title = document.createElement("strong");
+        title.textContent = c.category;
+
+        const status = document.createElement("span");
+        status.className = "complaint-status";
+        status.textContent = c.status;
+
+        top.appendChild(title);
+        top.appendChild(status);
+
+        const location = document.createElement("p");
+        location.textContent = "📍 " + c.location;
+
+        const description = document.createElement("p");
+        description.textContent = c.description;
+
+        const meta = document.createElement("p");
+        meta.className = "complaint-meta";
+        meta.textContent =
+            "#" + c.id + " • " +
+            new Date(c.createdAt).toLocaleString();
+
+        item.appendChild(top);
+        item.appendChild(location);
+        item.appendChild(description);
+        item.appendChild(meta);
+
+        complaintList.appendChild(item);
+
+    });
+
+}
+
+
+submitComplaint.addEventListener("click", async function() {
+
+    const category = complaintCategory.value;
+    const location = complaintLocation.value.trim();
+    const description = complaintText.value.trim();
+
+    if (!category || !location || description.length < 10) {
+
+        complaintMessage.textContent =
+            "❌ Please choose a category, add a location, " +
+            "and describe the issue (at least 10 characters).";
+
+        return;
+
+    }
+
+    submitComplaint.disabled = true;
+    complaintMessage.textContent = "Submitting...";
+
+    const complaint = {
+
+        id: Date.now().toString().slice(-6),
+        category: category,
+        location: location,
+        description: description,
+        status: "Submitted",
+        createdAt: new Date().toISOString()
+
+    };
+
+    try {
+
+        const response = await fetch(
+            "https://campusbuddy-0y4a.onrender.com/complaints",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(complaint)
+            }
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Backend returned status " + response.status);
+
+        }
+
+        complaintMessage.textContent =
+            "✅ Complaint #" + complaint.id + " submitted successfully.";
+
+    }
+
+    catch (error) {
+
+        console.error("Complaint backend error:", error);
+
+        complaint.status = "Saved on this device";
+
+        complaintMessage.textContent =
+            "⚠️ Couldn't reach the server, so complaint #" +
+            complaint.id + " was saved on this device only.";
+
+    }
+
+    finally {
+
+        const list = loadComplaints();
+        list.push(complaint);
+        saveComplaints(list);
+
+        complaintCategory.value = "";
+        complaintLocation.value = "";
+        complaintText.value = "";
+
+        renderComplaints();
+
+        submitComplaint.disabled = false;
+
+    }
+
+});
